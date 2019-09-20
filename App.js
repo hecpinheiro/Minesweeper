@@ -13,8 +13,13 @@ const App = () => {
       <Text style={styles.welcome}>Minesweeper</Text>
       <Text style={styles.instructions}>Matriz {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
       <Field/>
-      <Field opened />
+      <Field opened/>
       <Field opened nearMines={5}/>
+      <Field mined/>
+      <Field mined opened/>
+      <Field mined opened exploded/>
+      <Field flagged/>
+      <Field flagged opened/>
     </View>
   );
 };
