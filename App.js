@@ -1,11 +1,7 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import params from './src/params'
 import Field from './src/components/Field'
-
-
-
-
 
 const App = () => {
   return (
