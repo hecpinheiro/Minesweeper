@@ -1,37 +1,52 @@
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, {Component} from 'react'
+import {StyleSheet, View, Text} from 'react-native'
 import params from './src/params'
-import Field from './src/components/Field'
+//import Field from './src/components/Field'
+import MineField from './src/components/mineField'
+import {createMinedBoard} from './src/logic'
 
-const App = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Minesweeper</Text>
-      <Text style={styles.instructions}>Matriz {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
-      <Field/>
-      <Field opened/>
-      <Field opened nearMines={5}/>
-      <Field mined/>
-      <Field mined opened/>
-      <Field mined opened exploded/>
-      <Field flagged/>
-      <Field flagged opened/>
-    </View>
-  );
-};
+export default class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = this.createState()
+  }
+
+  minesAmount = () => // Calcula quantidade de minas necessárias baseado no difficultLevel
+  {
+    const cols = params.getColumnsAmount()
+    const rows = params.getRowsAmount()
+    
+    return Math.ceil(cols * rows * params.difficultLevel)
+  }
+  
+  createState = () => // Calcula o Estado do jogo (minas abertas, flags...)
+  {
+    const cols = params.getColumnsAmount()
+    const rows = params.getRowsAmount()
+    
+    return {
+      board: createMinedBoard(rows, cols, this.minesAmount()),
+    }
+  }
+  render(){
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Minesweeper</Text>
+        <Text style={styles.instructions}>Matriz {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
+        <View style={styles.board}><MineField board={this.state.board}/></View>
+      </View>
+    )}
+}
 
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5F5F5'
-    
+    justifyContent: 'flex-end'
   },
   
-  welcome:{
-
+  board:{
+    alignItems: 'center',
+    backgroundColor: '#F5F5F5'
   }
-});
-
-export default App;
+})

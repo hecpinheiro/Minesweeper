@@ -4,7 +4,7 @@ const createBoard = (rows, columns) => //Função q criar um Array de Arrays (ma
         return Array(columns).fill(0).map((_, column) => {
             return {
                 row,
-                colums,
+                columns,
                 opened: false,
                 flagged: false,
                 mined: false,
@@ -37,11 +37,11 @@ const spreadMines = (board, minesAmount) =>
 }
 
 
-const createMinesBoard = (rows, columns, minesAmount) => 
+const createMinedBoard = (rows, columns, minesAmount) => 
 {
     const board = createBoard(rows,columns)
     spreadMines(board, minesAmount)
     return board
 } 
 
-export {createMinesBoard}
+export {createMinedBoard}
